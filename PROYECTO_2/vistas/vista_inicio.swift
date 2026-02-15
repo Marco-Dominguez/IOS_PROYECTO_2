@@ -88,7 +88,8 @@ struct VistaInicio: View {
                     VistaJuegoGato(
                         nombreJugador1: nombreJ1,
                         nombreJugador2: nombreJ2,
-                        esModoDosJugadores: esModoDosJugadores
+                        esModoDosJugadores: esModoDosJugadores,
+                        juegoActivo: $irAlJuego
                     )
                 }
             }

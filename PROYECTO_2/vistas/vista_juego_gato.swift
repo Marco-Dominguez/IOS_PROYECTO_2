@@ -16,8 +16,8 @@ struct VistaJuegoGato: View {
     let nombreJugador2: String
     let esModoDosJugadores: Bool
     
-    // para el boton de regresar
-    @Environment(\.dismiss) var dismiss
+    // control para navegacion
+    @Binding var juegoActivo: Bool
     
     var body: some View {
         VStack(spacing: 20) {
@@ -71,7 +71,7 @@ struct VistaJuegoGato: View {
                         gestorDelJuego.reiniciarJuego()
                     },
                     accionMenu: {
-                        dismiss()
+                        juegoActivo = false
                     }
                 )
             }
@@ -83,6 +83,11 @@ struct VistaJuegoGato: View {
 
 #Preview {
     NavigationStack {
-        VistaJuegoGato(nombreJugador1: "Demo", nombreJugador2: "CPU", esModoDosJugadores: false)
+        VistaJuegoGato(
+            nombreJugador1: "Demo",
+            nombreJugador2: "CPU",
+            esModoDosJugadores: false,
+            juegoActivo: .constant(true)
+        )
     }
 }
