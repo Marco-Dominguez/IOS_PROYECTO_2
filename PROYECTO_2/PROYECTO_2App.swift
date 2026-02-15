@@ -11,7 +11,7 @@ import SwiftUI
 struct PROYECTO_2App: App {
     var body: some Scene {
         WindowGroup {
-            VistaJuegoGato()
+            VistaInicio()
         }
     }
 }

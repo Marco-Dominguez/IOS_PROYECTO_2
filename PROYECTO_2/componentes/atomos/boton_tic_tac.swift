@@ -2,37 +2,46 @@
 //  boton_tic_tac.swift
 //  PROYECTO_2
 //
-//  Created by Marco Dominguez on 11/02/26.
+//  Created by Marco Dominguez on 15/02/26.
 //
 
 import SwiftUI
 
+/// boton X O -
 struct BotonTicTac: View {
-    @State private var opcion_a_mostrar = 0 // 0 = vacio, 1 = X (jugador 1), 2 = O (jugador 2)
-    @Binding var turno_actual: Int // 0: jugador X | 1: jugador O
-    let opciones = ["-", "X", "O"]
-    
+    let estado: EstadosBoton
+    let accion: () -> Void
     
     var body: some View {
-        Text(opciones[opcion_a_mostrar])
-            .padding(10)
-            .font(Font.largeTitle)
-            .bold()
-            .frame(width: 80, height: 80) // hacerlo cuadrado
-            .background(Color.yellow)
-            .cornerRadius(8)
-            .onTapGesture {
-                if opcion_a_mostrar == 0 { // no se ha clickeado el boton
-                    if turno_actual == 0 {
-                        opcion_a_mostrar = 1 // pone X
-                        turno_actual = 1
-                    }
-                    else {
-                        opcion_a_mostrar = 2 // pone O
-                        turno_actual = 0
-                    }
-                }
-            }
+        Button(action: accion) {
+            Text(estado.rawValue)
+                .font(.system(size: 40, weight: .bold))
+                .foregroundColor(obtenerColor())
+                .frame(width: 80, height: 80)
+                .background(Color.yellow.opacity(0.3))
+                .cornerRadius(12)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.yellow, lineWidth: 2)
+                )
+        }
+        .disabled(estado != .vacio) // deshabilitar si ya esta usado
+    }
+    
+    /// retorna "X" azul, "O" rojo o "-" gris
+    private func obtenerColor() -> Color {
+        switch estado {
+        case .vacio: return .gray
+        case .equis: return .blue
+        case .circulo: return .red
+        }
     }
 }
 
+#Preview {
+    HStack {
+        BotonTicTac(estado: .equis, accion: {})
+        BotonTicTac(estado: .circulo, accion: {})
+        BotonTicTac(estado: .vacio, accion: {})
+    }
+}
